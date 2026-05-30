@@ -16,8 +16,17 @@ from app.services.scenario_generator import generate_scenario
 
 DEFAULT_ORDERS = [10, 20, 40]
 DEFAULT_SEEDS = [42, 7, 99]
-DEFAULT_CONSTRAINTS = ConstraintConfig(max_distance=500.0, max_route_time=500.0, capacity=999)
-DEFAULT_SA_CONFIG = SAConfig(initial_temp=1000.0, cooling_rate=0.995, min_temp=1.0, max_iterations=5000)
+DEFAULT_CONSTRAINTS = ConstraintConfig(
+    max_distance=500.0,
+    max_route_time=500.0,
+    capacity=999,
+)
+DEFAULT_SA_CONFIG = SAConfig(
+    initial_temp=1000.0,
+    cooling_rate=0.995,
+    min_temp=1.0,
+    max_iterations=5000,
+)
 
 
 def run_experiments(

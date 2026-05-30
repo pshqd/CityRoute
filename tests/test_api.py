@@ -4,6 +4,16 @@ from app.main import app
 
 client = TestClient(app)
 
+_ORDERS = [
+    {"id": 1, "location": {"x": 10, "y": 20}, "demand": 1, "service_time": 5},
+    {"id": 2, "location": {"x": 80, "y": 60}, "demand": 1, "service_time": 5},
+]
+
+_SCENARIO = {
+    "depot": {"location": {"x": 50, "y": 50}},
+    "orders": _ORDERS,
+}
+
 
 def test_health():
     response = client.get("/api/v1/health")
@@ -29,16 +39,7 @@ def test_generate_scenario_custom():
 def test_solve_greedy():
     response = client.post(
         "/api/v1/solve",
-        json={
-            "scenario": {
-                "depot": {"location": {"x": 50, "y": 50}},
-                "orders": [
-                    {"id": 1, "location": {"x": 10, "y": 20}, "demand": 1, "service_time": 5},
-                    {"id": 2, "location": {"x": 80, "y": 60}, "demand": 1, "service_time": 5},
-                ],
-            },
-            "algorithm": "greedy",
-        },
+        json={"scenario": _SCENARIO, "algorithm": "greedy"},
     )
     assert response.status_code == 200
     data = response.json()
@@ -49,18 +50,10 @@ def test_solve_greedy():
 def test_compare_endpoint():
     response = client.post(
         "/api/v1/compare",
-        json={
-            "scenario": {
-                "depot": {"location": {"x": 50, "y": 50}},
-                "orders": [
-                    {"id": 1, "location": {"x": 10, "y": 20}, "demand": 1, "service_time": 5},
-                    {"id": 2, "location": {"x": 80, "y": 60}, "demand": 1, "service_time": 5},
-                ],
-            },
-            "algorithm": "greedy",
-        },
+        json={"scenario": _SCENARIO, "algorithm": "greedy"},
     )
     assert response.status_code == 200
     data = response.json()
     assert "naive" in data
     assert "greedy" in data
+    assert "sa" in data

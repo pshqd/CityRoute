@@ -1,12 +1,12 @@
 from math import dist
 
-from app.core.constraints import count_violations, is_feasible
+from app.core.constraints import is_feasible
 from app.core.models import ConstraintConfig, Route, Scenario
 
 
 def solve_naive(scenario: Scenario, constraints: ConstraintConfig) -> Route:
     """
-    Naive baseline: visit orders in the original list order,
+    Naive baseline: visit orders in original list order,
     return to depot at the end.
     """
     depot = (scenario.depot.location.x, scenario.depot.location.y)
@@ -23,7 +23,6 @@ def solve_naive(scenario: Scenario, constraints: ConstraintConfig) -> Route:
         order_ids.append(order.id)
         current = nxt
 
-    # return to depot
     back = dist(current, depot)
     total_distance += back
     total_time += back

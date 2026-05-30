@@ -1,4 +1,4 @@
-from app.core.models import Route, ConstraintConfig
+from app.core.models import ConstraintConfig, Route
 
 
 def is_feasible(route: Route, constraints: ConstraintConfig) -> bool:
