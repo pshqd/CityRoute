@@ -21,8 +21,8 @@ from typing import List
 from app.core.constraints import count_violations, is_feasible
 from app.core.models import ConstraintConfig, Order, Route, SAConfig, Scenario
 
-SKIP_PENALTY = 500.0
-VIOLATION_PENALTY = 1000.0
+SKIP_PENALTY = 200.0
+VIOLATION_PENALTY = 5000.0
 
 
 # ---------------------------------------------------------------------------
