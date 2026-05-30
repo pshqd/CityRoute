@@ -22,8 +22,8 @@ class Depot(BaseModel):
 
 
 class ConstraintConfig(BaseModel):
-    max_route_time: float = 500.0   # minutes
-    max_distance: float = 500.0     # km / units
+    max_route_time: float = 500.0
+    max_distance: float = 500.0
     capacity: int = 999
 
 
@@ -40,10 +40,20 @@ class Route(BaseModel):
     feasible: bool = True
 
 
+class SAConfig(BaseModel):
+    """Hyper-parameters for Simulated Annealing."""
+    initial_temp: float = 1000.0
+    cooling_rate: float = 0.995
+    min_temp: float = 1.0
+    max_iterations: int = 5000
+    seed: int = 42
+
+
 class SolveRequest(BaseModel):
     scenario: Scenario
     constraints: ConstraintConfig = Field(default_factory=ConstraintConfig)
-    algorithm: Literal["naive", "greedy"] = "greedy"
+    algorithm: Literal["naive", "greedy", "sa"] = "greedy"
+    sa_config: SAConfig = Field(default_factory=SAConfig)
 
 
 class SolveResult(BaseModel):
